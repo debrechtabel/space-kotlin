@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Space Kotlin</string>
+    <string name="space_kotlin">Space Kotlin</string>
+    <string name="opacity">Opacity</string>
+    <string name="saturation">Saturation</string>
+    <string name="color">Color</string>
+    <string name="start_game">Start Game</string>
+    <string name="brightness">Brightness</string>
+    <string name="player_name">Player Name</string>
+    <string name="finish">Finish</string>
+    <string name="high_scores">High Scores</string>
+</resources>
