@@ -9,8 +9,8 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 public class ShipUtil {
 
     public static void processShipDrawable(Drawable d) {
-        DrawableCompat.setTint(d, ShipKt.shipColor());
-        d.setAlpha(Ship.INSTANCE.getAlpha());
+        DrawableCompat.setTint(d, Player.INSTANCE.getColor());
+        d.setAlpha(Player.INSTANCE.getAlpha());
     }
 
 }

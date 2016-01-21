@@ -40,10 +40,11 @@ class MainActivity : AppCompatActivity() {
 
     fun startGameImpl() {
         // todo real impl
-        val name = playerName.text.toString()
-        val score = Random().nextInt(500)
-
-        ScoreKeeper.addScore(name, score)
+//        val name = playerName.text.toString()
+//        val score = Random().nextInt(500)
+//
+//        ScoreKeeper.addScore(name, score)
+        launchFragment(GameFragment())
     }
 
     private fun showHighScores() {

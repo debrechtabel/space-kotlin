@@ -30,15 +30,12 @@ import org.jetbrains.anko.verticalLayout
 
 class EditShipFragment : Fragment() {
 
-    lateinit var ship: ImageView
-    lateinit var colorSlider: SeekBar
-    lateinit var alphaSlider: SeekBar
-    lateinit var brightnessSlider: SeekBar
+    lateinit var preview: ImageView
 
-    var hue = Ship.hue
-    var saturation = Ship.saturation
-    var brightness = Ship.brightness
-    var alpha = Ship.alpha
+    var hue = Player.hue
+    var saturation = Player.saturation
+    var brightness = Player.brightness
+    var alpha = Player.alpha
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return with(ctx) {
@@ -46,10 +43,10 @@ class EditShipFragment : Fragment() {
                 backgroundColor = Color.WHITE
                 lparams(matchParent, matchParent)
 
-                ship = imageView(R.drawable.ship).lparams(dip(200), dip(200)) {
+                preview = imageView(R.drawable.ship).lparams(dip(200), dip(200)) {
                     gravity = Gravity.CENTER
                 }
-                ShipUtil.processShipDrawable(ship.drawable)
+                ShipUtil.processShipDrawable(preview.drawable)
 
                 textView(R.string.color) {
                     textSize = 18f
@@ -120,23 +117,25 @@ class EditShipFragment : Fragment() {
                 // opacity
                 seekBar {
                     init()
-                    max = 255
-                    progress = alpha
+                    max = 254
+                    progress = alpha - 1
 
                     onSeekBarChangeListener {
                         onProgressChanged { seekBar, progress, fromUser ->
-                            alpha = progress
-                            ship.imageAlpha = alpha
+                            alpha = progress + 1
+                            preview.imageAlpha = alpha
                         }
                     }
                 }
 
                 button("Finish") {
                     onClick {
-                        Ship.hue = hue
-                        Ship.saturation = saturation
-                        Ship.brightness = brightness
-                        Ship.alpha = alpha
+                        Player.hue = hue
+                        Player.saturation = saturation
+                        Player.brightness = brightness
+                        Player.alpha = alpha
+
+                        runInBackground { Player.genBitmap() }
 
                         popFragment()
                     }
@@ -148,7 +147,7 @@ class EditShipFragment : Fragment() {
     }
 
     fun updateTint() {
-        ship.setTint(Color.HSVToColor(floatArrayOf(hue, saturation, brightness)))
+        preview.setTint(Color.HSVToColor(floatArrayOf(hue, saturation, brightness)))
     }
 
     fun SeekBar.init() {
